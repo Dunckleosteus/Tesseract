@@ -1,0 +1,102 @@
+### A Pluto.jl notebook ###
+# v0.20.4
+
+using Markdown
+using InteractiveUtils
+
+# This Pluto notebook uses @bind for interactivity. When running this notebook outside of Pluto, the following 'mock version' of @bind gives bound variables a default value (instead of an error).
+macro bind(def, element)
+    #! format: off
+    quote
+        local iv = try Base.loaded_modules[Base.PkgId(Base.UUID("6e696c72-6542-2067-7265-42206c756150"), "AbstractPlutoDingetjes")].Bonds.initial_value catch; b -> missing; end
+        local el = $(esc(element))
+        global $(esc(def)) = Core.applicable(Base.get, el) ? Base.get(el) : iv(el)
+        el
+    end
+    #! format: on
+end
+
+# ╔═╡ daf8ed22-f51c-11ef-390c-097d818ad8df
+begin 
+	using Pkg; 
+	Pkg.activate(".")
+	Pkg.status()
+end
+
+# ╔═╡ a64e5ea9-e435-4651-ae0d-18c86c1d9cf6
+begin 
+	using OCReract, Images, GLMakie, PlutoUI
+end
+
+# ╔═╡ 04b8367d-a433-4130-87e4-053998bd4f12
+begin 
+	img_path = "images/49_17-_5_rep_TEST_GEN_236189355.tif";
+	document = Images.load(img_path)
+	
+	n_pages = size(document)[end]
+end
+
+# ╔═╡ 69c35dbf-c1c3-4213-9cb6-42ee6f0441e8
+md"""
+Select page : 
+$(@bind page PlutoUI.Slider(1:n_pages))
+"""
+
+# ╔═╡ 1ae684f0-eb5d-4f61-a5c1-5526142c4c32
+begin 
+	img = imresize(document[:, :, page], ratio=1/4)
+	print()
+end
+
+# ╔═╡ 54fa2d47-0fb5-4808-a7d0-63b05319c9bf
+begin
+	d = 360
+	θ=d*π/180
+	rotated = imrotate(img, θ)
+	width, height = size(rotated)
+	rotated
+end
+
+# ╔═╡ 1280d29b-60a4-4140-8e29-3077c041de6d
+begin 
+	res_text = run_tesseract(img[:, :, 1]);
+	print(strip(res_text))
+end
+
+# ╔═╡ 7247dc48-ce9c-4c34-acee-d70e0d4c316e
+md"""
+# Filtering image
+X range : $(@bind x_range PlutoUI.RangeSlider(1:width))
+
+
+y range : $(@bind y_range PlutoUI.RangeSlider(1:height))
+"""
+
+# ╔═╡ 7b0c3a4d-ee37-49bf-af59-97fe6195cca3
+begin 
+	x_min = minimum(x_range)
+	x_max = maximum(x_range)
+
+	y_min = minimum(y_range)
+	y_max = maximum(y_range)
+
+	subset = img[x_min:x_max, y_min:y_max]
+end
+
+# ╔═╡ 613ba683-7cf2-47d8-b0f7-0498193b0395
+begin
+	res_text2 = run_tesseract(subset);
+	print(strip(res_text2))
+end
+
+# ╔═╡ Cell order:
+# ╟─daf8ed22-f51c-11ef-390c-097d818ad8df
+# ╠═a64e5ea9-e435-4651-ae0d-18c86c1d9cf6
+# ╟─04b8367d-a433-4130-87e4-053998bd4f12
+# ╟─69c35dbf-c1c3-4213-9cb6-42ee6f0441e8
+# ╟─1ae684f0-eb5d-4f61-a5c1-5526142c4c32
+# ╟─54fa2d47-0fb5-4808-a7d0-63b05319c9bf
+# ╟─1280d29b-60a4-4140-8e29-3077c041de6d
+# ╟─7247dc48-ce9c-4c34-acee-d70e0d4c316e
+# ╟─7b0c3a4d-ee37-49bf-af59-97fe6195cca3
+# ╟─613ba683-7cf2-47d8-b0f7-0498193b0395
