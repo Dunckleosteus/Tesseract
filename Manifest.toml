@@ -2,7 +2,7 @@
 
 julia_version = "1.11.3"
 manifest_format = "2.0"
-project_hash = "03ceba9fa6bcdac6094bed0ed26aed825dd93365"
+project_hash = "22ec7a53e1fe47aeaf63a999d00128b3ded2ec5b"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -991,12 +991,6 @@ git-tree-sha1 = "a560dd966b386ac9ae60bdd3a3d3a326062d3c3e"
 uuid = "8cdb02fc-e678-4876-92c5-9defec4f444e"
 version = "0.3.1"
 
-[[deps.Leptonica_jll]]
-deps = ["Artifacts", "Giflib_jll", "JLLWrappers", "JpegTurbo_jll", "Libdl", "Libtiff_jll", "OpenJpeg_jll", "Pkg", "Zlib_jll", "libpng_jll", "libwebp_jll"]
-git-tree-sha1 = "37a15c3a2c1d044b631ad404a63dac6b82280a84"
-uuid = "6a1430e4-294a-53a5-a485-ec66ef6b843c"
-version = "1.82.0+0"
-
 [[deps.LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
 uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
@@ -1859,18 +1853,6 @@ deps = ["LinearAlgebra"]
 git-tree-sha1 = "1feb45f88d133a655e001435632f019a9a1bcdb6"
 uuid = "62fd8b95-f654-4bbd-a8a5-9c27f68ccd50"
 version = "0.1.1"
-
-[[deps.Tesseract]]
-deps = ["Base64", "Dates", "HTTP", "JSON", "Leptonica_jll", "Printf", "SHA", "Tesseract_jll"]
-git-tree-sha1 = "fa701628a9fdf80ba8cf17698b1597da522db36a"
-uuid = "11879493-52b3-4e20-990d-281c54a395a1"
-version = "0.4.0"
-
-[[deps.Tesseract_jll]]
-deps = ["Artifacts", "Cairo_jll", "CompilerSupportLibraries_jll", "Giflib_jll", "JLLWrappers", "JpegTurbo_jll", "Leptonica_jll", "Libdl", "Libtiff_jll", "Pango_jll", "Pkg", "Zlib_jll", "libpng_jll"]
-git-tree-sha1 = "ec8afd829cbc792b1f639b66ce4f959264c44b76"
-uuid = "efd95c89-babc-5260-8753-618084eaf9d7"
-version = "5.1.0+0"
 
 [[deps.Test]]
 deps = ["InteractiveUtils", "Logging", "Random", "Serialization"]
