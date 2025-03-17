@@ -31,7 +31,7 @@ end
 # ╔═╡ 04b8367d-a433-4130-87e4-053998bd4f12
 begin 
 	img_path = "images/49_17-_5_rep_TEST_GEN_236189355.tif";
-	document = Images.load(img_path)
+	global document = Images.load(img_path)
 	
 	n_pages = size(document)[end]
 end
@@ -89,14 +89,38 @@ begin
 	print(strip(res_text2))
 end
 
+# ╔═╡ c5733a04-4507-4ff6-8e2e-0fb27d611ba9
+md"""
+# Iteratively throughout the whole tiff
+"""
+
+# ╔═╡ 0bb8c61a-2d3f-461e-8b22-e4b4fb4b674b
+begin
+	all_text = []
+	for page in 1:n_pages
+		local d = 360
+		local θ=d*π/180
+		local rotated = imrotate(img, θ)
+		local width, height = size(rotated)
+		local res_text = strip(run_tesseract(document[:, :, page]));
+		push!(all_text, res_text)
+	end
+end
+
+# ╔═╡ 50d64f50-4b1a-4455-a280-09aa5c6212bd
+print(all_text)
+
 # ╔═╡ Cell order:
 # ╟─daf8ed22-f51c-11ef-390c-097d818ad8df
 # ╠═a64e5ea9-e435-4651-ae0d-18c86c1d9cf6
-# ╟─04b8367d-a433-4130-87e4-053998bd4f12
-# ╟─69c35dbf-c1c3-4213-9cb6-42ee6f0441e8
-# ╟─1ae684f0-eb5d-4f61-a5c1-5526142c4c32
+# ╠═04b8367d-a433-4130-87e4-053998bd4f12
+# ╠═69c35dbf-c1c3-4213-9cb6-42ee6f0441e8
+# ╠═1ae684f0-eb5d-4f61-a5c1-5526142c4c32
 # ╟─54fa2d47-0fb5-4808-a7d0-63b05319c9bf
-# ╟─1280d29b-60a4-4140-8e29-3077c041de6d
+# ╠═1280d29b-60a4-4140-8e29-3077c041de6d
 # ╟─7247dc48-ce9c-4c34-acee-d70e0d4c316e
 # ╟─7b0c3a4d-ee37-49bf-af59-97fe6195cca3
 # ╟─613ba683-7cf2-47d8-b0f7-0498193b0395
+# ╟─c5733a04-4507-4ff6-8e2e-0fb27d611ba9
+# ╠═0bb8c61a-2d3f-461e-8b22-e4b4fb4b674b
+# ╠═50d64f50-4b1a-4455-a280-09aa5c6212bd
